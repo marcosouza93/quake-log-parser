@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: quake-log-parser
+  boot:
+    admin:
+      client:
+        url: vsc-springboot-admin

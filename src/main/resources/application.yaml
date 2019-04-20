@@ -1,0 +1,12 @@
+info:
+  build:
+    version: '@project.version@'
+    name: '@project.name@'
+    timestamp: '@maven.build.timestamp@'
+
+server:
+  port: 8080
+
+app:
+  logging:
+    defaultPackage: br.com.labs.quakelogparser
