@@ -17,4 +17,8 @@ public class Game {
   private Integer killsQuantity = 0;
   private List<String> players;
   private Map<String, Integer> kills;
+
+  public Game(final Map<String, Integer> kills) {
+    this.kills = kills;
+  }
 }
