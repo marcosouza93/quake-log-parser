@@ -12,8 +12,6 @@ import java.util.Map;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @JsonSerialize
 public class GameDetailJsonResponse {
 
