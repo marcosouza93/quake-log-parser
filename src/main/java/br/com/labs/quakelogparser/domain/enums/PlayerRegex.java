@@ -1,10 +1,10 @@
 package br.com.labs.quakelogparser.domain.enums;
 
 public enum PlayerRegex {
-  USER_CODE("ClientUserinfoChanged\\:\\s(\\d)"),
-  USER_NAME("\\sn\\\\([\\w\\W]+)\\\\t\\\\"),
-  KILLER("\\d:\\s([\\w\\W]+)\\skilled"),
-  KILLED("killed\\s([\\w\\W]+)\\sby");
+  TO_GET_PLAYER_CODE("ClientUserinfoChanged\\:\\s(\\d)"),
+  TO_GET_PLAYER_NAME("\\sn\\\\([\\w\\W]+)\\\\t\\\\"),
+  TO_GET_KILLER("\\d:\\s([\\w\\W]+)\\skilled"),
+  TO_GET_KILLED_PLAYER("killed\\s([\\w\\W]+)\\sby");
 
   private final String label;
 
