@@ -16,11 +16,18 @@ import java.util.stream.Stream;
 @Service
 public class GameReportGenerator {
 
+  @Autowired private GameManager game;
+
   @Value("classpath:data/games.log")
   Resource resourceFile;
 
-  @Autowired private GameManager game;
-
+  /**
+   * Reads all lines from a file as a {@code Stream}. Bytes from the file are decoded into
+   * characters.
+   *
+   * @return The games report as {@link List}
+   * @throws Exception
+   */
   public List<Game> generate() throws Exception {
     try (Stream<String> stream = Files.lines(Paths.get(resourceFile.getURI()))) {
       stream.forEach(game::process);

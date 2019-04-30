@@ -1,6 +1,6 @@
 package br.com.labs.quakelogparser.usecase;
 
-import br.com.labs.quakelogparser.domain.Game;
+import br.com.labs.quakelogparser.domain.enums.PlayerRegex;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 import static br.com.labs.quakelogparser.domain.enums.GamesMarker.WORLD_PLAYER_MARKER;
-import static br.com.labs.quakelogparser.domain.enums.PlayerRegex.*;
 
 @Slf4j
 @Service
@@ -16,40 +15,79 @@ public class PlayerManager {
 
   @Autowired private DataSearchEngine dataSearchEngine;
 
-  public void registerNew(Map<String, String> players, String row) {
-    final String userCode = dataSearchEngine.find(row, USER_CODE.label());
-    final String userName = dataSearchEngine.find(row, USER_NAME.label());
+  /**
+   * Registers a new game player
+   *
+   * @param players
+   *        The game users
+   * @param row
+   *        The text base used to get player information
+   */
+  public void registerNewOne(Map<String, String> players, String row) {
+    final String userCode = dataSearchEngine.find(row, PlayerRegex.TO_GET_PLAYER_CODE.label());
+    final String userName = dataSearchEngine.find(row, PlayerRegex.TO_GET_PLAYER_NAME.label());
 
     players.put(userCode, userName);
   }
 
-  public void collectScore(Game game, String row) {
-    final String killer = dataSearchEngine.find(row, KILLER.label());
-    final String killed = dataSearchEngine.find(row, KILLED.label());
+  /**
+   * Collects points to the game players
+   *
+   * @param kills
+   *        The death dictionary that represents the number of times each player killed an
+   *        opponent
+   * @param row
+   *        The text base used to get player information
+   */
+  public void collectScore(Map<String, Integer> kills, String row) {
+    final String killer = dataSearchEngine.find(row, PlayerRegex.TO_GET_KILLER.label());
+    final String killed = dataSearchEngine.find(row, PlayerRegex.TO_GET_KILLED_PLAYER.label());
 
+    // Checks if the world killed the current player
     if (row.contains(WORLD_PLAYER_MARKER.label())) {
-      decreasePlayerScore(game, killed);
-
+      decreasePlayerScore(kills, killed);
     } else {
-      increasePlayerScore(game, killer, killed);
+      increasePlayerScore(kills, killer, killed);
     }
   }
 
-  private void decreasePlayerScore(Game game, String killed) {
-    if (game.getKills().containsKey(killed)) {
-      game.getKills().put(killed, game.getKills().get(killed) - 1);
+  /**
+   * Registers negative point to the dead player score
+   * @param kills
+   *        The death dictionary that represents the number of times each player killed an
+   *        opponent
+   * @param killed
+   *        Killer player in this turn
+   */
+  private void decreasePlayerScore(Map<String, Integer> kills, String killed) {
+    // Checks if the killed player is already registered on the death dictionary
+    if (kills.containsKey(killed)) {
+      kills.put(killed, kills.get(killed) - 1);
     } else {
-      game.getKills().put(killed, -1);
+      kills.put(killed, -1);
     }
   }
 
-  private void increasePlayerScore(Game game, String killer, String killed) {
+  /**
+   * Registers positive point to the killer score
+   * @param kills
+   *        The death dictionary that represents the number of times each player killed an
+   *        opponent
+   * @param killer
+   *        Killer in this turn
+   * @param killed
+   *        Killed player in this turn
+   */
+  private void increasePlayerScore(Map<String, Integer> kills, String killer, String killed) {
+    // Checks if the killer and the dead player are not the same person
     if (!killer.equals(killed)) {
-      if (game.getKills().containsKey(killer)) {
-        game.getKills().put(killer, game.getKills().get(killer) + 1);
+      // Checks if the killer is already registered on the death dictionary
+      if (kills.containsKey(killer)) {
+        kills.put(killer, kills.get(killer) + 1);
       } else {
-        game.getKills().put(killer, 1);
+        kills.put(killer, 1);
       }
     }
   }
+
 }
