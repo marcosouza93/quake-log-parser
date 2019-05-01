@@ -34,6 +34,13 @@
 		</dependency>
 		<!-- End Spring boot -->
 
+		<!-- Spring actuator -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- End Spring actuator -->
+
 		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

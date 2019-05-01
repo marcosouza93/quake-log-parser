@@ -1,5 +1,5 @@
 info:
-  build:
+  app:
     version: '@project.version@'
     name: '@project.name@'
     timestamp: '@maven.build.timestamp@'
