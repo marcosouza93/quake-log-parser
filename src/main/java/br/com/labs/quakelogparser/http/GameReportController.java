@@ -38,7 +38,7 @@ public class GameReportController {
       })
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<List<GameDetailJsonResponse>> getGameReport() throws Exception {
+  public ResponseEntity<List<GameDetailJsonResponse>> getGameReport() {
 
     List<Game> games = gameReportGenerator.generate();
 

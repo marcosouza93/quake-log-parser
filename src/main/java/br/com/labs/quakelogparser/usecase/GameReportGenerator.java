@@ -3,12 +3,11 @@ package br.com.labs.quakelogparser.usecase;
 import br.com.labs.quakelogparser.domain.Game;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -18,8 +17,7 @@ public class GameReportGenerator {
 
   @Autowired private GameManager game;
 
-  @Value("classpath:data/games.log")
-  Resource resourceFile;
+  private static final String FILE_NAME = "/data/games.log";
 
   /**
    * Reads all lines from a file as a {@code Stream}. Bytes from the file are decoded into
@@ -28,8 +26,8 @@ public class GameReportGenerator {
    * @return The games report as {@link List}
    * @throws Exception
    */
-  public List<Game> generate() throws Exception {
-    try (Stream<String> stream = Files.lines(Paths.get(resourceFile.getURI()))) {
+  public List<Game> generate() {
+    try (Stream<String> stream = getLogFileAsStream()) {
       stream.forEach(game::process);
 
     } catch (Exception e) {
@@ -38,5 +36,12 @@ public class GameReportGenerator {
     }
 
     return game.getGames();
+  }
+
+  private Stream<String> getLogFileAsStream() {
+    InputStream in = getClass().getResourceAsStream(FILE_NAME);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+    return reader.lines();
   }
 }
