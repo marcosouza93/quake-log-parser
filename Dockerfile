@@ -8,7 +8,7 @@ ENV PROFILE default
 ENV APP_HOME /opt/labs
 
 # Sets working directory
-WORKDIR $APP_HOME
+WORKDIR ${APP_HOME}
 
 # Copies jar into image
 COPY target/${APP_NAME} ${APP_HOME}
