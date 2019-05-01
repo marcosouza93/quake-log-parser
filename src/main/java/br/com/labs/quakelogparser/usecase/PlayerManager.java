@@ -13,7 +13,8 @@ import static br.com.labs.quakelogparser.domain.enums.GamesMarker.WORLD_PLAYER_M
 @Service
 public class PlayerManager {
 
-  @Autowired private DataSearchEngine dataSearchEngine;
+  @Autowired
+  private DataSearchEngine dataSearchEngine;
 
   /**
    * Registers a new game player

@@ -26,7 +26,8 @@ import java.util.List;
 @Api(tags = "GameDetailJsonResponse Report", produces = MediaType.APPLICATION_JSON_VALUE)
 public class GameReportController {
 
-  @Autowired private GameReportGenerator gameReportGenerator;
+  @Autowired
+  private GameReportGenerator gameReportGenerator;
 
   @ApiOperation(value = "Resource to generate a report through Quake game logs")
   @ApiResponses(

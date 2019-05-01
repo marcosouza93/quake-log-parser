@@ -16,7 +16,8 @@ import static br.com.labs.quakelogparser.domain.enums.GamesMarker.*;
 @Service
 public class GameManager {
 
-  @Autowired PlayerManager player;
+  @Autowired
+  PlayerManager player;
 
   private List<Game> games = new ArrayList<>();
   private Game game;

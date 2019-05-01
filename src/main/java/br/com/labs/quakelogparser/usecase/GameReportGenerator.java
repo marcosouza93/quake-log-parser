@@ -15,7 +15,8 @@ import java.util.stream.Stream;
 @Service
 public class GameReportGenerator {
 
-  @Autowired private GameManager game;
+  @Autowired
+  private GameManager game;
 
   private static final String FILE_NAME = "/data/games.log";
 
