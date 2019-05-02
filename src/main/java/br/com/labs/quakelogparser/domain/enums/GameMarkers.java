@@ -6,7 +6,7 @@ public enum GameMarkers {
   INIT_GAME_MARKER("InitGame"),
   SHUT_DOWN_MARKER("------------------------------------------------------------"),
   NEW_PLAYER_MARKER("ClientUserinfoChanged"),
-  WORLD_PLAYER_MARKER("<world>");
+  WORLD_PLAYER_CODE_MARKER("1022");
 
   private final String label;
 
