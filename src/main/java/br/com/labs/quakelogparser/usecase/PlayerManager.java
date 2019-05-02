@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-import static br.com.labs.quakelogparser.domain.enums.GameMarkers.WORLD_PLAYER_MARKER;
+import static br.com.labs.quakelogparser.domain.enums.GameMarkers.WORLD_PLAYER_CODE_MARKER;
 
 @Slf4j
 @Service
@@ -20,75 +20,48 @@ public class PlayerManager {
    * Registers a new game player
    *
    * @param players
-   *        The game users
+   *        The map that represents all players registered in the game
+   * @param kills
+   *        The map that represents the number of times each player killed an opponent
    * @param row
    *        The text base used to get player information
    */
-  public void registerNew(Map<String, String> players, String row) {
+  public void registerNew(Map<String, String> players, Map<String, Integer> kills, String row) {
     final String userCode = dataSearchEngine.find(row, PlayerRegex.TO_GET_PLAYER_CODE.getLabel());
     final String userName = dataSearchEngine.find(row, PlayerRegex.TO_GET_PLAYER_NAME.getLabel());
 
     players.put(userCode, userName);
+    kills.put(players.get(userCode), Integer.valueOf(0));
   }
 
   /**
    * Collects points to the game players
    *
+   * @param players
+   *        The map that represents all players registered in the game
    * @param kills
-   *        The map that represents the number of times each player killed an
-   *        opponent
+   *        The map that represents the number of times each player killed an opponent
    * @param row
    *        The text used to get player information
    */
-  public void collectScore(Map<String, Integer> kills, String row) {
-    final String killer = dataSearchEngine.find(row, PlayerRegex.TO_GET_KILLER.getLabel());
-    final String killed = dataSearchEngine.find(row, PlayerRegex.TO_GET_KILLED_PLAYER.getLabel());
+  public void collectScore(Map<String, String> players, Map<String, Integer> kills, String row) {
+    final String killerCode = dataSearchEngine.find(row, PlayerRegex.TO_GET_KILLER_CODE.getLabel());
+    final String killedPlayerCode = dataSearchEngine.find(row, PlayerRegex.TO_GET_KILLED_PLAYER_CODE.getLabel());
 
-    // Checks if the world killed the current player
-    if (row.contains(WORLD_PLAYER_MARKER.getLabel())) {
-      decreasePlayerScore(kills, killed);
+    // Checks if the world is the killer in this turn or if the killer and the dead player are the same person
+    if (killerCode.equals(WORLD_PLAYER_CODE_MARKER.getLabel()) || killerCode.equals(killedPlayerCode)) {
+      decreasePlayerScore(players, kills, killedPlayerCode);
     } else {
-      increasePlayerScore(kills, killer, killed);
+      increasePlayerScore(players, kills, killerCode);
     }
   }
 
-  /**
-   * Registers negative point to the dead player score
-   * @param kills
-   *        The map that represents the number of times each player killed an
-   *        opponent
-   * @param killed
-   *        Killed player in this turn
-   */
-  private void decreasePlayerScore(Map<String, Integer> kills, String killed) {
-    // Checks if the killed player is already registered on the death dictionary
-    if (kills.containsKey(killed)) {
-      kills.put(killed, kills.get(killed) - Integer.valueOf(1));
-    } else {
-      kills.put(killed, Integer.valueOf(-1));
-    }
+  private void decreasePlayerScore(Map<String, String> players, Map<String, Integer> kills, String killedPlayerCode) {
+    kills.put(players.get(killedPlayerCode), kills.get(players.get(killedPlayerCode)) - Integer.valueOf(1));
   }
 
-  /**
-   * Registers positive point to the killer score
-   * @param kills
-   *        The map that represents the number of times each player killed an
-   *        opponent
-   * @param killer
-   *        Killer in this turn
-   * @param killed
-   *        Killed player in this turn
-   */
-  private void increasePlayerScore(Map<String, Integer> kills, String killer, String killed) {
-    // Checks if the killer and the dead player are not the same person
-    if (!killer.equals(killed)) {
-      // Checks if the killer is already registered on the death dictionary
-      if (kills.containsKey(killer)) {
-        kills.put(killer, kills.get(killer) + Integer.valueOf(1));
-      } else {
-        kills.put(killer, Integer.valueOf(1));
-      }
-    }
+  private void increasePlayerScore(Map<String, String> players, Map<String, Integer> kills, String killerCode) {
+      kills.put(players.get(killerCode), kills.get(players.get(killerCode)) + Integer.valueOf(1));
   }
 
 }

@@ -35,11 +35,11 @@ public class GameManager {
       initNewGame();
     } else {
       if (row.contains(NEW_PLAYER_MARKER.getLabel())) {
-        player.registerNew(players, row);
+        player.registerNew(players, game.getKills(), row);
 
       } else if (row.contains(KILL_MARKER.getLabel())) {
         increaseGameKillQuantity();
-        player.collectScore(game.getKills(), row);
+        player.collectScore(players, game.getKills(), row);
 
       } else if (isGameStarted() && row.contains(SHUT_DOWN_MARKER.getLabel())) {
         finishCurrentGame();
