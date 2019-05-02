@@ -31,17 +31,17 @@ public class GameManager {
    *        Each row from the file that represents game instructions
    */
   public void process(String row) {
-    if (row.contains(INIT_GAME_MARKER.getLabel())) {
+    if (isAnInstructionToStartNewGame(row)) {
       initNewGame();
     } else {
-      if (row.contains(NEW_PLAYER_MARKER.getLabel())) {
+      if (isAnInstructionToRegisterNewPlayer(row)) {
         player.registerNew(players, game.getKills(), row);
 
-      } else if (row.contains(KILL_MARKER.getLabel())) {
+      } else if (isAnInstructionToRegisterNewDeath(row)) {
         increaseGameKillQuantity();
         player.collectScore(players, game.getKills(), row);
 
-      } else if (isGameStarted() && row.contains(SHUT_DOWN_MARKER.getLabel())) {
+      } else if (isAnInstructionToFinishTheGame(row)) {
         finishCurrentGame();
       }
     }
@@ -57,6 +57,22 @@ public class GameManager {
     game.setPlayers(new ArrayList<>(players.values()));
     games.add(game);
     gameStarted = false;
+  }
+
+  private boolean isAnInstructionToStartNewGame(String text) {
+    return text.contains(INIT_GAME_MARKER.getLabel());
+  }
+
+  private boolean isAnInstructionToRegisterNewPlayer(String text) {
+    return text.contains(NEW_PLAYER_MARKER.getLabel());
+  }
+
+  private boolean isAnInstructionToRegisterNewDeath(String text) {
+    return text.contains(KILL_MARKER.getLabel());
+  }
+
+  private boolean isAnInstructionToFinishTheGame(String text) {
+    return isGameStarted() && text.contains(SHUT_DOWN_MARKER.getLabel());
   }
 
   private void increaseGameKillQuantity() {
