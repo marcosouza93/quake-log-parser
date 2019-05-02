@@ -49,12 +49,12 @@ public class GameManagerUnitTest {
     // When is processed the game manager
     gameManager.process(text);
 
-    // Then is registered a new player to the game
-    verify(playerManager, VerificationModeFactory.times(1)).registerNew(any(), any(String.class));
+    // Then is registered a new player in the game
+    verify(playerManager, VerificationModeFactory.times(1)).registerNew(any(), any(), any(String.class));
   }
 
   @Test
-  public void collectScoreToPlayer() {
+  public void collectScoreToThePlayer() {
     // Given a text with a kill marker
     String text = "  2:11 Kill: 2 4 6: Dono da Bola killed Zeh by MOD_ROCKET\n";
     // And It was already started a new game
@@ -64,7 +64,7 @@ public class GameManagerUnitTest {
     gameManager.process(text);
 
     // Then is collected score to the player and increased the game score
-    verify(playerManager, VerificationModeFactory.times(1)).collectScore(any(), any(String.class));
+    verify(playerManager, VerificationModeFactory.times(1)).collectScore(any(), any(), any(String.class));
     Assert.assertEquals(gameManager.getGame().getKillsQuantity(), Integer.valueOf(1));
   }
 

@@ -77,76 +77,76 @@ public class DataSearchEngineUnitTest {
   }
 
   @Test
-  public void findKillerName() {
-    // Given a text with a killer name information and an expression to find a killer name
+  public void findKillerCode() {
+    // Given a text with a killer information and an expression to find a killer code
     String text = " 22:06 Kill: 2 3 7: Isgalamido killed Mocinha by MOD_ROCKET_SPLASH\n";
-    String regex = PlayerRegex.TO_GET_KILLER.getLabel();
+    String regex = PlayerRegex.TO_GET_KILLER_CODE.getLabel();
 
-    // When is searched a killer name
+    // When is searched a killer code
     String result = dataSearchEngine.find(text, regex);
 
-    // Then is returned correctly a killer name
-    Assert.assertEquals("Isgalamido", result);
+    // Then is returned correctly a killer code
+    Assert.assertEquals("2", result);
   }
 
   @Test
-  public void findKillerNameWithMultipleWords() {
-    // Given a text with a killer name information using multiple words and an expression to find a killer name
+  public void findKillerCodeWithMultipleDigits() {
+    // Given a text with a killer code information using multiple digits and an expression to find a killer code
     String text =
-        " 22:06 Kill: 2 3 7: Dono da Bola de futebol mais antiga do mundo vista até os dias de hoje killed Mocinha by MOD_ROCKET_SPLASH\n";
-    String regex = PlayerRegex.TO_GET_KILLER.getLabel();
+        " 22:06 Kill: 2 3 7: Dono da Bola killed Mocinha by MOD_ROCKET_SPLASH\n";
+    String regex = PlayerRegex.TO_GET_KILLER_CODE.getLabel();
 
-    // When is searched a killer name
+    // When is searched a killer code
     String result = dataSearchEngine.find(text, regex);
 
-    // Then is returned correctly a killer name
+    // Then is returned correctly a killer code
     Assert.assertEquals(
-        "Dono da Bola de futebol mais antiga do mundo vista até os dias de hoje", result);
+        "2", result);
   }
 
   @Test
-  public void findKillerNameWhenItIsTheWorld() {
-    // Given a text with the world player and an expression to find a killer name
+  public void findKillerCodeWhenItIsTheWorld() {
+    // Given a text with the world player and an expression to find a killer code
     String text = " 21:42 Kill: 1022 2 22: <world> killed Isgalamido by MOD_TRIGGER_HURT\n";
-    String regex = PlayerRegex.TO_GET_KILLER.getLabel();
+    String regex = PlayerRegex.TO_GET_KILLER_CODE.getLabel();
 
-    // When is searched a killer name
+    // When is searched a killer code
     String result = dataSearchEngine.find(text, regex);
 
-    // Then is returned correctly the world player as the killer
-    Assert.assertEquals("<world>", result);
+    // Then is returned correctly the world player code as the killer
+    Assert.assertEquals("1022", result);
   }
 
   @Test
-  public void findKilledPlayerName() {
-    // Given a text with a killed player name and an expression to find a killed player name
+  public void findKilledPlayerCode() {
+    // Given a text with a killed player code and an expression to find a killed player code
     String text = " 22:06 Kill: 2 3 7: Isgalamido killed Mocinha by MOD_ROCKET_SPLASH\n";
-    String regex = PlayerRegex.TO_GET_KILLED_PLAYER.getLabel();
+    String regex = PlayerRegex.TO_GET_KILLED_PLAYER_CODE.getLabel();
 
-    // When is searched a killed player name
+    // When is searched a killed player code
     String result = dataSearchEngine.find(text, regex);
 
-    // Then is returned correctly a killed player name
-    Assert.assertEquals("Mocinha", result);
+    // Then is returned correctly a killed player code
+    Assert.assertEquals("3", result);
   }
 
   @Test
-  public void findKilledPlayerNameWithMultipleWords() {
-    // Given a text with a killed player name using multiple words and an expression to find a killed player name
+  public void findKilledPlayerCodeWithMultipleDigits() {
+    // Given a text with a killed player code using multiple digits and an expression to find a killed player code
     String text =
-        " 22:06 Kill: 2 3 7: Isgalamido killed Dono da Bola de futebol mais antiga do mundo vista até os dias de hoje by MOD_ROCKET_SPLASH\n";
-    String regex = PlayerRegex.TO_GET_KILLED_PLAYER.getLabel();
+        " 22:06 Kill: 2 3 7: Isgalamido killed Dono da Bola by MOD_ROCKET_SPLASH\n";
+    String regex = PlayerRegex.TO_GET_KILLED_PLAYER_CODE.getLabel();
 
-    // When is searched a killed player name
+    // When is searched a killed player code
     String result = dataSearchEngine.find(text, regex);
 
-    // Then is returned correctly a killed player name
+    // Then is returned correctly a killed player code
     Assert.assertEquals(
-        "Dono da Bola de futebol mais antiga do mundo vista até os dias de hoje", result);
+        "3", result);
   }
 
   @Test(expected = DataNotFoundByRegexException.class)
-  public void NotFindDataWhenIsUsedIncorrectExpression() {
+  public void doNotFindDataWhenIsUsedIncorrectTheExpression() {
     // Given a text with only death information and an expression to find player information
     String text = " 22:06 Kill: 2 3 7: Isgalamido killed Mocinha by MOD_ROCKET_SPLASH\n";
     String regex = PlayerRegex.TO_GET_PLAYER_NAME.getLabel();

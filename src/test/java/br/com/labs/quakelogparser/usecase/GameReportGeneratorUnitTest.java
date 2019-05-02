@@ -34,7 +34,7 @@ public class GameReportGeneratorUnitTest {
   }
 
   @Test(expected = Exception.class)
-  public void notGenerateGameReport() {
+  public void doNotGenerateGameReport() {
     // Given an exception when it is called the game manager to process a game
     doThrow(new Exception()).when(gameManager).process(any(String.class));
 
