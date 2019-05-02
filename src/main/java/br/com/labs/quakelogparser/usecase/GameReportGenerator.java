@@ -32,7 +32,7 @@ public class GameReportGenerator {
       stream.forEach(game::process);
 
     } catch (Exception e) {
-      log.error("An error occurred processing the log file", e);
+      log.error("An error occurred while processing the log file", e);
       throw e;
     }
 

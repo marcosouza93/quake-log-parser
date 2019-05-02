@@ -19,5 +19,6 @@ public class GameDetailJsonResponse {
   private Integer killsQuantity;
 
   private List<String> players;
+
   private Map<String, Integer> kills;
 }

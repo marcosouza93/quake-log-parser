@@ -8,7 +8,7 @@ public class DataNotFoundByRegexException extends BusinessRuleException {
     private static final long serialVersionUID = 1L;
 
     private static final String CODE = "labs.dataNotFoundByRegex";
-    private static final String MESSAGE = "It was not possible to find a player data using an expression already configured.";
+    private static final String MESSAGE = "It was not possible to find a player data using a configured expression.";
 
     public DataNotFoundByRegexException() {
         super(ExceptionId.create(CODE, MESSAGE));

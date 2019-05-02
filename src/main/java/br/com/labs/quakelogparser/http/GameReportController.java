@@ -43,10 +43,10 @@ public class GameReportController {
 
     List<Game> games = gameReportGenerator.generate();
 
-    return new ResponseEntity<>(buildListOrderJson(games), HttpStatus.OK);
+    return new ResponseEntity<>(buildGamesJson(games), HttpStatus.OK);
   }
 
-  private List<GameDetailJsonResponse> buildListOrderJson(final List<Game> games) {
+  private List<GameDetailJsonResponse> buildGamesJson(final List<Game> games) {
     return GameDetailJsonResponseMapper.MAPPER.gameToGameDetailJsonResponse(games);
   }
 }

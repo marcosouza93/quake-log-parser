@@ -22,31 +22,12 @@ public class ExceptionId implements Serializable {
     return new ExceptionId(code, message, HttpStatus.BAD_REQUEST.value());
   }
 
-  public static ExceptionId internalError() {
-    return new ExceptionId(
-        HttpStatus.INTERNAL_SERVER_ERROR.name(),
-        HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
-        HttpStatus.INTERNAL_SERVER_ERROR.value());
-  }
-
   public String toString() {
     return String.format(MESSAGE_FORMAT, this.code, this.message);
   }
 
-  public ExceptionId withHttpStatusCode(final int httpStatusCode) {
-    return new ExceptionId(this.code, this.message, httpStatusCode);
-  }
-
   public ExceptionId withHttpStatus(final HttpStatus httpStatus) {
     return new ExceptionId(this.code, this.message, httpStatus.value());
-  }
-
-  public String code() {
-    return this.code;
-  }
-
-  public String message() {
-    return this.message;
   }
 
   public int httpStatusCode() {

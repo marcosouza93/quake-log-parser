@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static br.com.labs.quakelogparser.domain.enums.GamesMarker.*;
+import static br.com.labs.quakelogparser.domain.enums.GameMarkers.*;
 
 @Slf4j
 @Service
@@ -22,7 +22,7 @@ public class GameManager {
   private List<Game> games = new ArrayList<>();
   private Game game;
   private Map<String, String> players;
-  private boolean isGameStarted = false;
+  private boolean gameStarted = false;
 
   /**
    * Processes the game using key markers to identify all valid scenarios in the game
@@ -31,17 +31,17 @@ public class GameManager {
    *        Each row from the file that represents game instructions
    */
   public void process(String row) {
-    if (row.contains(INIT_GAME_MARKER.label())) {
+    if (row.contains(INIT_GAME_MARKER.getLabel())) {
       initNewGame();
     } else {
-      if (row.contains(NEW_PLAYER_MARKER.label())) {
-        player.registerNewOne(players, row);
+      if (row.contains(NEW_PLAYER_MARKER.getLabel())) {
+        player.registerNew(players, row);
 
-      } else if (row.contains(KILL_MARKER.label())) {
+      } else if (row.contains(KILL_MARKER.getLabel())) {
         increaseGameKillQuantity();
         player.collectScore(game.getKills(), row);
 
-      } else if (isGameStarted && row.contains(SHUT_DOWN_MARKER.label())) {
+      } else if (isGameStarted() && row.contains(SHUT_DOWN_MARKER.getLabel())) {
         finishCurrentGame();
       }
     }
@@ -50,20 +50,28 @@ public class GameManager {
   private void initNewGame() {
     game = new Game(new HashMap<>());
     players = new HashMap<>();
-    isGameStarted = true;
+    gameStarted = true;
   }
 
   private void finishCurrentGame() {
     game.setPlayers(new ArrayList<>(players.values()));
     games.add(game);
-    isGameStarted = false;
+    gameStarted = false;
   }
 
   private void increaseGameKillQuantity() {
-    game.setKillsQuantity(game.getKillsQuantity() + 1);
+    game.setKillsQuantity(game.getKillsQuantity() + Integer.valueOf(1));
   }
 
   public List<Game> getGames() {
     return games;
+  }
+
+  public boolean isGameStarted() {
+    return gameStarted;
+  }
+
+  public Game getGame() {
+    return game;
   }
 }

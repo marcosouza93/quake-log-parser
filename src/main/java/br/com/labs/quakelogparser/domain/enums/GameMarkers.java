@@ -1,6 +1,7 @@
 package br.com.labs.quakelogparser.domain.enums;
 
-public enum GamesMarker {
+public enum GameMarkers {
+
   KILL_MARKER("Kill"),
   INIT_GAME_MARKER("InitGame"),
   SHUT_DOWN_MARKER("------------------------------------------------------------"),
@@ -9,11 +10,11 @@ public enum GamesMarker {
 
   private final String label;
 
-  GamesMarker(final String label) {
+  GameMarkers(final String label) {
     this.label = label;
   }
 
-  public String label() {
+  public String getLabel() {
     return this.label;
   }
 }

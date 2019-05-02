@@ -17,16 +17,6 @@ public class IdentifiableException extends RuntimeException {
         this.headers = new HashMap();
     }
 
-    protected IdentifiableException(final ExceptionId id, final Throwable cause) {
-        super(id.toString(), cause);
-        this.id = id;
-        this.headers = new HashMap();
-    }
-
-    public ExceptionId id() {
-        return this.id;
-    }
-
     public HttpStatus httpStatus() {
         return HttpStatus.valueOf(this.id.httpStatusCode());
     }
@@ -35,12 +25,4 @@ public class IdentifiableException extends RuntimeException {
         return this.id.httpStatusCode();
     }
 
-    public Map<String, String> headers() {
-        return this.headers;
-    }
-
-    public IdentifiableException withHeaders(final Map<String, String> headers) {
-        this.headers.putAll(headers);
-        return this;
-    }
 }
