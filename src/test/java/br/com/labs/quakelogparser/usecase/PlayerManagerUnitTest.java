@@ -54,9 +54,11 @@ public class PlayerManagerUnitTest {
   public void increaseTheKillerScore() {
     // Given a map with player register
     Map<String, String> players = new HashMap<>();
+    players.put("2", "Mocinha");
     players.put("3", "Isgalamido");
-    // Given a map with death register and a register with value 12
+    // And a map with death register
     Map<String, Integer> kills = new HashMap<>();
+    kills.put("Mocinha", Integer.valueOf(9));
     kills.put("Isgalamido", Integer.valueOf(12));
     // And a text with game events
     String text = " 1:08 Kill: 3 2 6: Isgalamido killed Mocinha by MOD_ROCKET\n";
@@ -73,11 +75,35 @@ public class PlayerManagerUnitTest {
   }
 
   @Test
+  public void decreaseTheKilledPlayerScore() {
+    // Given a map with player register
+    Map<String, String> players = new HashMap<>();
+    players.put("2", "Mocinha");
+    players.put("3", "Isgalamido");
+    // And a map with death register
+    Map<String, Integer> kills = new HashMap<>();
+    kills.put("Mocinha", Integer.valueOf(12));
+    kills.put("Isgalamido", Integer.valueOf(10));
+    // And a text with game events
+    String text = " 1:08 Kill: 3 2 6: Isgalamido killed Mocinha by MOD_ROCKET\n";
+
+    // When is searched a killer code and a killed player code in the text
+    when(dataSearchEngine.find(text, PlayerRegex.TO_GET_KILLER_CODE.getLabel())).thenReturn("3");
+    when(dataSearchEngine.find(text, PlayerRegex.TO_GET_KILLED_PLAYER_CODE.getLabel()))
+            .thenReturn("2");
+    // And is tried to collect negative score to the killed player
+    playerManager.collectScore(players, kills, text);
+
+    // Then is decreased the killed player score
+    Assert.assertEquals(kills.get("Mocinha"), Integer.valueOf(11));
+  }
+
+  @Test
   public void decreaseTheKilledPlayerScoreWhenItWasKilledByTheWorld() {
     // Given a map with player register
     Map<String, String> players = new HashMap<>();
     players.put("2", "Isgalamido");
-    // Given a map with death register and a register with value 12
+    // And a map with death register and a register with value 12
     Map<String, Integer> kills = new HashMap<>();
     kills.put("Isgalamido", Integer.valueOf(12));
     // And a text with game events
@@ -99,7 +125,7 @@ public class PlayerManagerUnitTest {
     // Given a map with player register
     Map<String, String> players = new HashMap<>();
     players.put("2", "Isgalamido");
-    // Given a map with death register and a register with value 12
+    // And a map with death register and a register with value 12
     Map<String, Integer> kills = new HashMap<>();
     kills.put("Isgalamido", Integer.valueOf(12));
     // And a text with game events

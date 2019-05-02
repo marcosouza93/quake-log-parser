@@ -53,6 +53,7 @@ public class PlayerManager {
       decreasePlayerScore(players, kills, killedPlayerCode);
     } else {
       increasePlayerScore(players, kills, killerCode);
+      decreasePlayerScore(players, kills, killedPlayerCode);
     }
   }
 
