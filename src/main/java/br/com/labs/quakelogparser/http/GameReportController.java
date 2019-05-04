@@ -33,15 +33,13 @@ public class GameReportController {
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Ok"),
-        @ApiResponse(code = 400, message = "Bad Request"),
-        @ApiResponse(code = 422, message = "Unprocessable Entity"),
         @ApiResponse(code = 500, message = "Internal Server Error")
       })
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<GameDetailJsonResponse>> getGameReport() {
 
-    List<Game> games = gameReportGenerator.generate();
+    final List<Game> games = gameReportGenerator.generate();
 
     return new ResponseEntity<>(buildGamesJson(games), HttpStatus.OK);
   }

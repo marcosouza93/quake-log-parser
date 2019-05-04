@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static br.com.labs.quakelogparser.domain.enums.GameMarkers.*;
+import static br.com.labs.quakelogparser.domain.enumeration.GameMarkers.*;
 
 @Slf4j
 @Service

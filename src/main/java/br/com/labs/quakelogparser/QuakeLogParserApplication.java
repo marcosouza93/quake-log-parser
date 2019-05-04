@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class QuakeLogParserApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(QuakeLogParserApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(QuakeLogParserApplication.class, args);
+  }
 }

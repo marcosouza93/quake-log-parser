@@ -1,6 +1,7 @@
 package br.com.labs.quakelogparser.usecase;
 
 import br.com.labs.quakelogparser.domain.Game;
+import br.com.labs.quakelogparser.usecase.exception.UnreadableFileException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -31,9 +34,9 @@ public class GameReportGenerator {
     try (Stream<String> stream = getLogFileAsStream()) {
       stream.forEach(game::process);
 
-    } catch (Exception e) {
-      log.error("An error occurred while processing the log file", e);
-      throw e;
+    } catch (UncheckedIOException | NoSuchElementException ex) {
+      log.error("An error occurred while processing the log file", ex);
+      throw new UnreadableFileException(ex);
     }
 
     return game.getGames();

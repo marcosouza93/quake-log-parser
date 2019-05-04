@@ -1,6 +1,6 @@
 package br.com.labs.quakelogparser.usecase;
 
-import br.com.labs.quakelogparser.domain.enums.PlayerRegex;
+import br.com.labs.quakelogparser.domain.enumeration.PlayerRegex;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

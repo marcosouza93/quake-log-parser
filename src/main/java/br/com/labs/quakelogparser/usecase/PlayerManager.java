@@ -1,13 +1,13 @@
 package br.com.labs.quakelogparser.usecase;
 
-import br.com.labs.quakelogparser.domain.enums.PlayerRegex;
+import br.com.labs.quakelogparser.domain.enumeration.PlayerRegex;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-import static br.com.labs.quakelogparser.domain.enums.GameMarkers.WORLD_PLAYER_CODE_MARKER;
+import static br.com.labs.quakelogparser.domain.enumeration.GameMarkers.WORLD_PLAYER_CODE_MARKER;
 
 @Slf4j
 @Service

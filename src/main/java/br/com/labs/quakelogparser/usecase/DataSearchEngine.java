@@ -20,7 +20,7 @@ public class DataSearchEngine {
    *        The expression to be compiled
    * @return The result found as {@link String}
    */
-  public String find(String text, String regex) throws DataNotFoundByRegexException {
+  public String find(String text, String regex) {
     try {
       final Pattern pattern = Pattern.compile(regex);
       final Matcher matcher = pattern.matcher(text);
@@ -29,7 +29,7 @@ public class DataSearchEngine {
       return matcher.group(1);
     } catch (IllegalStateException ex) {
       log.error("It was not possible to find a player data in the text {} using the expression {}.", text, regex, ex);
-      throw new DataNotFoundByRegexException();
+      throw new DataNotFoundByRegexException(ex);
     }
   }
 }

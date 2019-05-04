@@ -1,4 +1,4 @@
-package br.com.labs.quakelogparser.domain.enums;
+package br.com.labs.quakelogparser.domain.enumeration;
 
 public enum PlayerRegex {
 

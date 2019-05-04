@@ -1,13 +1,12 @@
 package br.com.labs.quakelogparser.usecase;
 
-import br.com.labs.quakelogparser.domain.enums.PlayerRegex;
+import br.com.labs.quakelogparser.domain.enumeration.PlayerRegex;
 import br.com.labs.quakelogparser.usecase.exception.DataNotFoundByRegexException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
 
 public class DataSearchEngineUnitTest {
 
@@ -156,7 +155,6 @@ public class DataSearchEngineUnitTest {
       dataSearchEngine.find(text, regex);
     } catch (DataNotFoundByRegexException ex) {
       // Then is returned an error about data not found
-      Assert.assertEquals(HttpStatus.NOT_FOUND, ex.httpStatus());
       throw ex;
     }
   }
