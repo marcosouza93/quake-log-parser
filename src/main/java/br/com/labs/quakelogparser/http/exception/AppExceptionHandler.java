@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class AppExceptionHandler {
 
-  private static final String MESSAGE =
+  private static final String FRIENDLY_MESSAGE =
       "The server encountered an internal error or misconfiguration and was unable to complete your request.";
 
   @ResponseBody
   @ExceptionHandler(value = DataNotFoundByRegexException.class)
-  public ResponseEntity<?> handleException(DataNotFoundByRegexException exception) {
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(MESSAGE);
+  public ResponseEntity<?> handleDataNotFoundByRegexException() {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(FRIENDLY_MESSAGE);
   }
 
   @ResponseBody
   @ExceptionHandler(value = UnreadableFileException.class)
-  public ResponseEntity<?> handleException(UnreadableFileException exception) {
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(MESSAGE);
+  public ResponseEntity<?> handleUnreadableFileException() {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(FRIENDLY_MESSAGE);
   }
 }
