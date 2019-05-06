@@ -17,7 +17,6 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<springfox-swagger-ui.version>2.8.0</springfox-swagger-ui.version>
-		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
 	</properties>
 
 	<dependencies>
@@ -69,19 +68,6 @@
 			</exclusions>
 		</dependency>
 		<!-- End Swagger -->
-
-		<!-- Map Struct -->
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-jdk8</artifactId>
-			<version>${org.mapstruct.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<version>${org.mapstruct.version}</version>
-		</dependency>
-		<!-- End Map Struct -->
 	</dependencies>
 
 	<build>
@@ -95,6 +81,12 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.3</version>
+				<configuration>
+					<excludes>
+						<exclude>**/*Application.*</exclude>
+						<exclude>**/http/exception/*</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
