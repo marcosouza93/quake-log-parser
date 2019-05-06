@@ -51,7 +51,7 @@ http://localhost:8080/swagger-ui.html
 This project includes jacoco dependency, so it's possible to get information about the project coverage using the following command:
 
 ```
-maven clean tests
+mvn clean test
 ```
 
 At the final will be generated a report like this one:
