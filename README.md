@@ -70,6 +70,6 @@ At the final will be generated a report like this one:
 * [Docker](https://www.docker.com/) - Enterprise Container Platform
 * [Lombok](https://projectlombok.org/) - Java Library
 
-## Authors
+## Author
 
 * **Marco Souza** - [marcosouza93](https://github.com/marcosouza93)
