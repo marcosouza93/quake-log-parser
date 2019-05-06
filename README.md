@@ -72,6 +72,20 @@ Or access directly the endpoint on a browser through the following URL:
 http://localhost:8080/api/report
 ```
 
+### Executing with Heroku (Application deployed in the cloud)
+
+It was built a pipeline to deploy this project in Heroku Cloud Application Plataform, to access it through Swagger, use the following URL:
+
+```
+https://the-quake-log-parser.herokuapp.com/swagger-ui.html
+```
+
+Or access directly the endpoint on a browser through the following URL:
+
+```
+https://the-quake-log-parser.herokuapp.com/api/report
+```
+
 ## Running the tests
 
 This project includes jacoco dependency, so it's possible to get information about the project coverage using the following command:
@@ -93,6 +107,7 @@ At the final will be generated a report on the path "target/site/jacoco/index.ht
 * [Swagger](https://swagger.io/) - Java Webpack
 * [Docker](https://www.docker.com/) - Enterprise Container Platform
 * [Lombok](https://projectlombok.org/) - Java Library
+* [Heroku](https://www.heroku.com/) - Cloud Application Platform
 
 ## Author
 
