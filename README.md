@@ -4,7 +4,7 @@ It's a project to parse some statistics from quake 3 arena game and show them.
 
 ## Getting Started
 
-To begin using this template, choose one of the following options to get started:
+To begin using this project, choose one of the following options to get started:
 * [Download the latest release](https://github.com/marcosouza93/quake-log-parser/archive/master.zip)
 * Clone the repo: `git clone https://github.com/marcosouza93/quake-log-parser.git`
 * Fork the repo
@@ -25,7 +25,7 @@ Use the container plataform [docker](https://www.docker.com/) to start the proje
 docker build -t labs/quake-log-parser .
 ```
 
-And this to start the project inside of a docker container (exposing the port number 8080):
+And this commmand to start the project inside of a docker container (exposing the port number 8080):
 
 ```
 docker run -d -p 8080:8080 labs/quake-log-parser:latest
@@ -54,7 +54,7 @@ This project includes jacoco dependency, so it's possible to get information abo
 mvn clean test
 ```
 
-At the final will be generated a report like this one:
+At the final will be generated a report on the path "target/site/jacoco/index.html" like this one:
 
 ```
 [IMAGE]
