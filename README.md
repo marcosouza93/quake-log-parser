@@ -17,7 +17,13 @@ Apache Maven
 Docker
 ```
 
-### Installing
+### Installing with Docker
+
+Execute the following command to generate a jar file of the project:
+
+```
+mvn clean install
+```
 
 Use the container plataform [docker](https://www.docker.com/) to start the project. Execute the following command on the source folder to generate an image from the project:
 
@@ -29,6 +35,20 @@ And this commmand to start the project inside of a docker container (exposing th
 
 ```
 docker run -d -p 8080:8080 labs/quake-log-parser:latest
+```
+
+### Installing without Docker
+
+Execute the following command to generate a jar file of the project:
+
+```
+mvn clean install
+```
+
+Execute the following command to start the project:
+
+```
+java -jar -Dspring.profiles.active=default target/quake-log-parser-0.0.1-SNAPSHOT.jar
 ```
 
 ### Executing
