@@ -82,7 +82,7 @@ mvn clean test
 
 At the final will be generated a report on the path "target/site/jacoco/index.html" like this one:
 
-![Image of Jacoco report](https://github.com/marcosouza93/quake-log-parser/src/main/resources/jacoco-report.png)
+![Image of Jacoco report](src/main/resources/jacoco-report.png)
 
 ## Built With
 
